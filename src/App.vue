@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <Home/>
+
+    <!-- 路由出口 -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Home from './components/Home.vue'
 
 export default {
-  name: 'App',
-  components: {
-    Home
-  }
 }
 </script>
 
-<style>
+<style lang="scss">
+@import url('./assets/css/reset.css');
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

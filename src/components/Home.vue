@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>hello world</h1>
     <el-button type="danger">hello</el-button>
+    <i class="fa fa-drivers-license-o"></i>
   </div>
 </template>
 
@@ -12,6 +13,9 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss">
+.hello{
+  background-color: yellow;
+}
 
 </style>
