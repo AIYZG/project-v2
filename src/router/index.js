@@ -7,6 +7,16 @@ Vue.use(Router)
 export default new Router({
     routes:[
         {
+            path:'/',
+            redirect:'/login',  //重定向
+            component:() => import('@/components/Login')
+        },
+        {
+            path:'/login',
+            name:'/login',
+            component:() => import('@/components/Login')
+        },
+        {
             path:'/home',
             // component:Home
             // component:() => import('@/components/Home')  //路由懒加载
