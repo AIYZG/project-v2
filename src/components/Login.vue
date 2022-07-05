@@ -46,6 +46,7 @@ export default {
 				}
     },
 		methods:{
+			//登录验证
 				login(form) {
 					this.$refs[form].validate((valid) => {
 						if(valid) {
