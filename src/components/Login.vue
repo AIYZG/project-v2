@@ -1,28 +1,15 @@
+<!-- el表单登录验证封装 -->
 <template>
 <div class="login">
 	<el-card class="box-card">
 		<div slot="header" class="clearfix">
 			<span>通用后台管理系统</span>
 		</div>
-		<el-form label-width="80px" :model="form" ref="form">
-			<el-form-item 
-				label="用户名" 
-				prop="username" 
-				:rules="[
-					{required:true,message:'请输入用户名',trigger:'blur'},
-					{min:4,max:10,message:'长度在4-10位字符之间',trigger:'blur'}
-				]"
-			>
+		<el-form label-width="80px" :model="form" ref="form" :rules="rules">
+			<el-form-item label="用户名" prop="username">
 				<el-input v-model="form.username"></el-input>
 			</el-form-item>
-			<el-form-item 
-				label="密码" 
-				prop="password"
-				:rules="[
-					{required:true,message:'请输入密码',trigger:'blur'},
-					{min:4,max:10,message:'长度在6-12位字符之间',trigger:'blur'}
-				]"
-			>
+			<el-form-item label="密码" prop="password">
 				<el-input type="password" v-model="form.password"></el-input>
 			</el-form-item>
 			<el-form-item>
@@ -34,16 +21,50 @@
 
 </template>
 <script>
-// import { CLIENT_RENEG_LIMIT } from 'tls'
-
 export default {
     data(){
+		//表单自带方法
+		const validateName = (rule, value, callback) => {
+			//请输入4-10位含大小写或数字昵称 正则,f1调用正则插件
+			let reg = /(^[a-zA-Z0-9]{4,10}$)/
+			if(value === '') {
+				//callback为回调函数
+				callback(new Error('请输入用户名'))
+			}
+			else if (!reg.test(value)) {
+				//校验不通过
+				callback(new Error('请输入4-10位用户名'))
+			}
+			else {
+				callback()
+			}
+		}
+		const validatePass = (rule, value, callback) => {
+			//6-12位密码需要包含大小写字母和数字以及特殊符号
+			let pass = 
+				/^\S*(?=\S{6,12})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/;
+			if(value === '') {
+				//callback为回调函数
+				callback(new Error('请输入密码'))
+			}
+			else if (!pass.test(value)) {
+				//校验不通过
+				callback(new Error('6-12位密码需要包含大小写字母和数字及特殊符号'))
+			}
+			else {
+				callback()
+			}
+		}
         return { 
-					form:{
-						username:'',
-						password:'',
-					}
-				}
+			form:{
+				username:'',
+				password:'',
+			},
+			rules:{
+				username:[{validator:validateName,trigger:'blur'}],
+				password:[{validator:validatePass,trigger:'blur'}]
+			}
+		}
     },
 		methods:{
 			//登录验证
@@ -51,7 +72,19 @@ export default {
 					this.$refs[form].validate((valid) => {
 						if(valid) {
 							//校验通过
-							console.log(this.form) 
+							console.log(this.form,"this.form") 
+							this.axios.post('https://rapserver.sunmi.com/app/mock/340/login',this.form)
+							.then(res => {
+								console.log(res,"res")
+								if(res.data.status === 200) {
+									localStorage.setItem('username', res.data.username)
+									this.$message({message:res.data.message,type:'success'})
+									this.$router.push('/home')
+								}
+							})
+							.catch(err => {
+								console.error(err)
+							})
 						} else {
 							console.error(this.form)
 						}
