@@ -23,6 +23,7 @@
 <script>
 import { nameRule, passRule } from '../utils/vaildate.js'
 import { setToken } from '../utils/setToken.js'
+import { login } from '@/api/api.js'
 export default {
     data(){
         return { 
@@ -43,18 +44,24 @@ export default {
 						if(valid) {
 							//校验通过
 							console.log(this.form,"this.form") 
-							this.axios.post('https://rapserver.sunmi.com/app/mock/340/login',this.form)
-							.then(res => {
-								console.log(res,"res")
-								if(res.data.status === 200) {
-									// localStorage.setItem('username', res.data.username)
-									setToken('username', res.data.username)
-									this.$message({message:res.data.message,type:'success'})
+							//登录方法封装成api进行调用
+							// this.service.post('/login', this.form)
+							// .then(res => {
+							// 	console.log(res)
+							// 	if (res.data.status === 200) {
+							// 		setToken('username',res.data.username)
+							// 		setToken('token',res.data.token)
+							// 		this.$message({message: res.data.message, type:'success'})
+							// 		this.$router.push('/home')
+							// 	}
+							// })
+							login(this.form).then(res => {
+								if (res.data.status === 200) {
+									setToken('username',res.data.username)
+									setToken('token',res.data.token)
+									this.$message({message: res.data.message, type:'success'})
 									this.$router.push('/home')
 								}
-							})
-							.catch(err => {
-								console.error(err)
 							})
 						} else {
 							console.error(this.form)
@@ -70,6 +77,10 @@ export default {
 	height:100%;
 	position:absolute;
 	background-color: #409EFF;
+	// background: url('../assets/bg.jpg') center no-repeat;
+	// .el-card {
+	// 	background: #65768557;
+	// }
 	.box-card{
 		width:450px;
 		margin:200px auto; //居中

@@ -17,6 +17,11 @@ export default new Router({
             component:() => import('@/components/Login')
         },
         {
+            path:'*',
+            name:'NotFound',
+            component:() => import('@/components/NotFound')
+        },
+        {
             path:'/home',
             // component:Home
             // component:() => import('@/components/Home')  //路由懒加载
