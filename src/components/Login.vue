@@ -25,14 +25,14 @@ export default {
     data(){
 		//表单自带方法
 		const validateName = (rule, value, callback) => {
-			//请输入4-10位含大小写或数字昵称 正则,f1调用正则插件
+			// 请输入4-10位含大小写或数字昵称 正则,f1调用正则插件
 			let reg = /(^[a-zA-Z0-9]{4,10}$)/
 			if(value === '') {
-				//callback为回调函数
+				// callback为回调函数
 				callback(new Error('请输入用户名'))
 			}
 			else if (!reg.test(value)) {
-				//校验不通过
+				// 校验不通过
 				callback(new Error('请输入4-10位用户名'))
 			}
 			else {
