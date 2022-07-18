@@ -4,7 +4,14 @@
     <el-container class="content">
       <Menu />
       <el-container>
-        <el-main>Main</el-main>
+        <el-main>
+          <Bread />
+          <!-- 路由出口 -->
+          <div class="cont">
+            <router-view></router-view>
+          </div>
+          
+        </el-main>
         <el-footer><Footer /></el-footer>
       </el-container>
     </el-container>
@@ -16,11 +23,13 @@
 import Header from './common/Header.vue'
 import Footer from './common/Footer.vue'
 import Menu from './common/Menu.vue'
+import Bread from './common/BreadCrumb.vue'
 export default {
   components: {
     Header,
     Footer,
-    Menu
+    Menu,
+    Bread
   },
   data(){
     return {}
@@ -39,6 +48,9 @@ export default {
     width:100%;
     top:60px;
     bottom:0;
+    .cont{
+      margin: 20px;
+    }
   }
 }
 
