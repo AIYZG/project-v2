@@ -77,15 +77,18 @@ export default {
 	height:100%;
 	position:absolute;
 	background-color: #409EFF;
-	// background: url('../assets/bg.jpg') center no-repeat;
+	background: url('../assets/bg.jpg') center no-repeat;
 	// .el-card {
 	// 	background: #65768557;
 	// }
 	.box-card{
 		width:450px;
 		margin:200px auto; //居中
+		background-color: rgba(255,255,255,0.3);
+		font-weight: bold;
 		.el-card__header {
 			font-size: 30px;
+			color:#000;
 		}
 		.el-button{
 			width:100%;
